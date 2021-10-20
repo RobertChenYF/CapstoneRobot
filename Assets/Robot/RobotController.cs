@@ -41,7 +41,7 @@ public class RobotController : MonoBehaviour
     private JointSpring grap1Spring;
     private JointSpring grap2Spring;
 
-
+    [SerializeField]private GameObject CameraDisplay;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,19 +74,27 @@ public class RobotController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.C)|| Input.GetKeyDown("joystick button 6"))
         {
-            currentCameraIndex++;
+            
 
-            if (currentCameraIndex < cameras.Length)
+            if (CameraDisplay.activeSelf == false)
             {
+                CameraDisplay.SetActive(true);
+            }
+            else if (currentCameraIndex < cameras.Length-1)
+            {
+                currentCameraIndex++;
                 cameras[currentCameraIndex - 1].gameObject.SetActive(false);
                 cameras[currentCameraIndex].gameObject.SetActive(true);
 
             }
             else
             {
-                cameras[currentCameraIndex - 1].gameObject.SetActive(false);
+                cameras[currentCameraIndex].gameObject.SetActive(false);
+                
+                
                 currentCameraIndex = 0;
                 cameras[currentCameraIndex].gameObject.SetActive(true);
+                CameraDisplay.SetActive(false);
 
             }
         }
