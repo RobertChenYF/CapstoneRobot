@@ -30,6 +30,8 @@ public class RobotController : MonoBehaviour
     private string ROTATE_GRAP_AXIS = "rotateGrap";
     private string Grap_Axis = "Grap";
 
+    
+
 
     //private string CAMERA_INPUT_AXIS = "camera";
     

@@ -16,6 +16,9 @@ public class SimpleCarController : MonoBehaviour
     public List<AxleInfo> axleInfos;
     public float maxMotorTorque;
     public float maxSteeringAngle;
+    [SerializeField] private AnimationCurve AxisToSpeed;
+    [SerializeField] private GameObject leftFrontArrow, leftBackArrow, rightFrontArrow, rightBackArrow;
+
 
     // finds the corresponding visual wheel
     // correctly applies the transform
@@ -68,11 +71,11 @@ public class SimpleCarController : MonoBehaviour
             if (axleInfo.motor)
             {
 
-                    axleInfo.leftWheel.motorTorque = leftTank * maxMotorTorque;
+                axleInfo.leftWheel.motorTorque = AxisToSpeed.Evaluate(Mathf.Abs(leftTank))*Mathf.Sign(leftTank) * maxMotorTorque;
  
-                    axleInfo.rightWheel.motorTorque = rightTank*maxMotorTorque;
+                axleInfo.rightWheel.motorTorque = AxisToSpeed.Evaluate(Mathf.Abs(rightTank)) * Mathf.Sign(rightTank) * maxMotorTorque;
 
-
+                
                 
             }
             ApplyLocalPositionToVisuals(axleInfo.leftWheel);
