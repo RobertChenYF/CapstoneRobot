@@ -17,8 +17,9 @@ public class SimpleCarController : MonoBehaviour
     public float maxMotorTorque;
     public float maxSteeringAngle;
     [SerializeField] private AnimationCurve AxisToSpeed;
-    [SerializeField] private GameObject leftFrontArrow, leftBackArrow, rightFrontArrow, rightBackArrow;
-
+    [SerializeField] private GameObject leftArrow,rightArrow;
+    [SerializeField] private Color ColorGreen;
+    [SerializeField] private Color ColorRed;
 
     // finds the corresponding visual wheel
     // correctly applies the transform
@@ -67,6 +68,44 @@ public class SimpleCarController : MonoBehaviour
 
             float leftTank = Input.GetAxis("leftTank");
             float rightTank = Input.GetAxis("rightTank");
+
+            if (Mathf.Abs(leftTank) < 0.1f)
+            {
+                leftArrow.SetActive(false);
+            }
+            else
+            {
+                leftArrow.SetActive(true);
+                if (Mathf.Sign(leftTank) == -1)
+                {
+                    leftArrow.GetComponent<SpriteRenderer>().flipX = true;
+                    leftArrow.GetComponent<SpriteRenderer>().material.SetColor("_ArrowColor",ColorRed*(1f+ Mathf.Abs(leftTank)*3.0f));
+                }
+                else
+                {
+                    leftArrow.GetComponent<SpriteRenderer>().flipX = false;
+                    leftArrow.GetComponent<SpriteRenderer>().material.SetColor("_ArrowColor", ColorGreen * (1f + Mathf.Abs(leftTank) * 3.0f));
+                }
+            }
+
+            if (Mathf.Abs(rightTank) < 0.1f)
+            {
+                rightArrow.SetActive(false);
+            }
+            else
+            {
+                rightArrow.SetActive(true);
+                if (Mathf.Sign(rightTank) == -1)
+                {
+                    rightArrow.GetComponent<SpriteRenderer>().flipX = true;
+                    rightArrow.GetComponent<SpriteRenderer>().material.SetColor("_ArrowColor", ColorRed * (1f + Mathf.Abs(rightTank) * 3.0f));
+                }
+                else
+                {
+                    rightArrow.GetComponent<SpriteRenderer>().flipX = false;
+                    rightArrow.GetComponent<SpriteRenderer>().material.SetColor("_ArrowColor", ColorGreen * (1f + Mathf.Abs(rightTank) * 3.0f));
+                }
+            }
 
             if (axleInfo.motor)
             {
