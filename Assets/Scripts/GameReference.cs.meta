@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 99ad39e19369a7049b6812ef657aeeb6
+guid: 52a512162aebd6a47b76deef6252aee0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - scifiFloor: {fileID: 4333422324128790674, guid: 819bdb25daabcbe47a63a83d1896decd, type: 3}
+  - ScifiFloor: {fileID: 4333422324128790674, guid: 819bdb25daabcbe47a63a83d1896decd, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
