@@ -9,9 +9,9 @@ using UnityEditor;
 public class UpdateLevel : Editor
 {
     private static GameObject scifiFloor;
-    public static List<string> PuzzleElementName = new List<string>{"Button", "Gate", "Scanner" };
+    public static List<string> PuzzleElementName = new List<string>{"Button", "Gate", "Scanner"};
     public static List<GameObject> PuzzleElementPrefabs = new List<GameObject>();
-    [MenuItem("Window/Level/UpdateLevel")]
+    [MenuItem("Window/Level/GenerateLevel")]
     // Start is called before the first frame update
      static void LoadData()
     {

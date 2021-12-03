@@ -361,3 +361,6 @@ MonoBehaviour:
   On: 1
   doorRenderer: {fileID: 153186988736457271}
   Scanner: {fileID: 0}
+  ScannerwaveRenderer: {fileID: 0}
+  TransparentGreen: {r: 0.019607844, g: 0.81960785, b: 0, a: 0.21960784}
+  TransparentBlue: {r: 0, g: 0.8041742, b: 0.81960785, a: 0.21960784}

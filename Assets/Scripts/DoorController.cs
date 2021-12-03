@@ -9,6 +9,9 @@ public class DoorController : MonoBehaviour
     [SerializeField] private bool On;
     [SerializeField] private Renderer doorRenderer;
     [SerializeField] private GameObject Scanner;
+    [SerializeField] private MeshRenderer ScannerwaveRenderer;
+    [SerializeField] private Color TransparentGreen;
+    [SerializeField] private Color TransparentBlue;
     // Start is called before the first frame update
     void Start()
     {
@@ -67,5 +70,15 @@ public class DoorController : MonoBehaviour
             Scanner.SetActive(true);
         }
         On = true;
+    }
+
+    public void ScannerDetect()
+    {
+        ScannerwaveRenderer.material.SetColor("_Color", TransparentGreen);
+    }
+
+    public void ScannerUndetect()
+    {
+        ScannerwaveRenderer.material.SetColor("_Color", TransparentBlue);
     }
 }
