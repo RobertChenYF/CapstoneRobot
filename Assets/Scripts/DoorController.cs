@@ -46,7 +46,7 @@ public class DoorController : MonoBehaviour
     {
         if (On)
         {
-        doorAnimator.SetTrigger("Open");
+        doorAnimator.SetBool("Open",true);
         open = true;
         }
         
@@ -56,7 +56,7 @@ public class DoorController : MonoBehaviour
     {
         if (On)
         {
-            doorAnimator.SetTrigger("Close");
+            doorAnimator.SetBool("Open", false);
             open = false;
         }
         
