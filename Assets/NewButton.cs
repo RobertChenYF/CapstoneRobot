@@ -27,12 +27,12 @@ public class NewButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(GetValue());
-        if (!isPressed && GetValue() + threshold >=1.3f)
+        //Debug.Log(GetValue() + threshold);
+        if (!isPressed && GetValue() + threshold >=0.5f)
         {
             Pressed();
         }
-        if (isPressed && GetValue() - threshold <=0.3)
+        if (isPressed && GetValue() - threshold <=0.3f)
         {
             Released();
         }
