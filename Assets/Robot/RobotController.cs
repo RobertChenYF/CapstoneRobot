@@ -30,7 +30,9 @@ public class RobotController : MonoBehaviour
     private string ROTATE_GRAP_AXIS = "rotateGrap";
     private string Grap_Axis = "Grap";
 
-    
+    [HideInInspector]public bool grab = false;
+
+    [SerializeField]private GrabController grabController;
 
 
     //private string CAMERA_INPUT_AXIS = "camera";
@@ -73,7 +75,30 @@ public class RobotController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (grabController.grabObject != null && grab == false)
+            {
+                grab = true;
+                //grabController.grabObject.transform.SetParent(grabController.gameObject.transform);
+                grabController.grabObject.AddComponent<FixedJoint>();
+                grabController.grabObject.GetComponent<FixedJoint>().connectedBody = grabController.gameObject.GetComponent<Rigidbody>();
+                //Set gravity to false while holding it
+                //grabController.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                //grabController.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            }
+            else if (grab == true)
+            {
+                grab = false;
+                if (grabController.grabObject.GetComponent<FixedJoint>() != null)
+                {
+                    Destroy(grabController.grabObject.GetComponent<FixedJoint>());
+                }
+                
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.C)|| Input.GetKeyDown("joystick button 6"))
         {
             
