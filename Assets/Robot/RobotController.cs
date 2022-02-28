@@ -76,30 +76,46 @@ public class RobotController : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetButtonDown("Grap"))
         {
+            grabController.myMat.SetColor("_ArrowColor", grabController.GrabColor);
             if (grabController.grabObject != null && grab == false)
             {
                 grab = true;
                 //grabController.grabObject.transform.SetParent(grabController.gameObject.transform);
-                grabController.grabObject.AddComponent<FixedJoint>();
+                if (grabController.grabObject.GetComponent<FixedJoint>() == null)
+                {
+                    grabController.grabObject.AddComponent<FixedJoint>();
+               }
+                
                 grabController.grabObject.GetComponent<FixedJoint>().connectedBody = grabController.gameObject.GetComponent<Rigidbody>();
+                grabController.myMat.SetColor("_ArrowColor", grabController.GrabColor*3.5f);
                 //Set gravity to false while holding it
-                //grabController.gameObject.GetComponent<Rigidbody>().useGravity = false;
-                //grabController.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                grabController.grabObject.GetComponent<Rigidbody>().useGravity = false;
+               // grabController.grabObject.GetComponent<Rigidbody>().isKinematic = true;
             }
             else if (grab == true)
             {
                 grab = false;
                 if (grabController.grabObject.GetComponent<FixedJoint>() != null)
                 {
+                    grabController.grabObject.GetComponent<Rigidbody>().useGravity = true;
+               //     grabController.grabObject.GetComponent<Rigidbody>().isKinematic = false ;
                     Destroy(grabController.grabObject.GetComponent<FixedJoint>());
                 }
-                
+                grabController.myMat.SetColor("_ArrowColor", grabController.StaticColor*3.5f);
+            }
+        }
+        if (Input.GetAxis(Grap_Axis) == 0)
+        {
+            if (grab == false)
+            {
+                grabController.myMat.SetColor("_ArrowColor", grabController.StaticColor);
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.C)|| Input.GetKeyDown("joystick button 6"))
+
+            if (Input.GetKeyDown(KeyCode.C)|| Input.GetKeyDown("joystick button 6"))
         {
             
 

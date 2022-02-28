@@ -7,10 +7,16 @@ public class GrabController : MonoBehaviour
 {
     public GameObject grabObject = null;
     public RobotController robotController;
+    public Color StaticColor;
+    public Color TouchColor;
+    [HideInInspector]public Material myMat;
+    public Color GrabColor;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        myMat = GetComponent<MeshRenderer>().material;
+        myMat.SetColor("_ArrowColor",StaticColor);
     }
 
     // Update is called once per frame
@@ -25,6 +31,7 @@ public class GrabController : MonoBehaviour
         {
             Debug.Log("grab");
             grabObject = other.gameObject;
+            myMat.SetColor("_ArrowColor", TouchColor*3.5f);
         }
     }
 
@@ -32,11 +39,12 @@ public class GrabController : MonoBehaviour
     {
         if (other.gameObject == grabObject)
         {
+            grabObject.GetComponent<Rigidbody>().useGravity = true;
             if (grabObject.GetComponent<FixedJoint>() != null)
             {
                 Destroy(grabObject.GetComponent<FixedJoint>());
             }
-            
+            myMat.SetColor("_ArrowColor", StaticColor);
             grabObject = null;
             robotController.grab = false;
         }
