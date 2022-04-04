@@ -22,4 +22,9 @@ public class CrushingWall : MonoBehaviour
 
         gameObject.transform.Translate(transform.forward* speed* Time.deltaTime, Space.Self);
     }
+
+    private void OnEnable()
+    {
+        
+    }
 }

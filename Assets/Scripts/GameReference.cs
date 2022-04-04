@@ -24,5 +24,6 @@ public static class Service
 {
     
     public static GameReference gameReference;
+    public static RobotController robotController;
 
 }

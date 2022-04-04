@@ -33,7 +33,7 @@ public class RobotController : MonoBehaviour
     [HideInInspector]public bool grab = false;
 
     [SerializeField]private GrabController grabController;
-
+    [SerializeField] private SimpleCarController carController;
 
     //private string CAMERA_INPUT_AXIS = "camera";
     
@@ -46,7 +46,22 @@ public class RobotController : MonoBehaviour
     private JointSpring grap2Spring;
 
     [SerializeField]private GameObject CameraDisplay;
+    [SerializeField] private MeshRenderer arm1JointRenderer;
+    [SerializeField] private MeshRenderer arm2JointRenderer;
+
+    [SerializeField] private GameObject arm1;
+    [SerializeField] private GameObject arm2;
+    [SerializeField] private Transform arm1Stick;
+    [SerializeField] private Transform arm2Stick;
+    private Quaternion arm1rot;
+    private Vector3 arm1Pos;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        Service.robotController = this;
+    }
+
     void Start()
     {
         
@@ -55,6 +70,9 @@ public class RobotController : MonoBehaviour
         arm2Spring = Arm2.spring;
         grap1Spring = grap1.spring;
         grap2Spring = grap2.spring;
+        arm1rot = arm1.transform.localRotation;
+        arm1Pos = arm1.transform.localPosition;
+
         
         /*currentCameraIndex = 0;
         for (int i = 1; i < cameras.Length; i++)
@@ -70,6 +88,32 @@ public class RobotController : MonoBehaviour
         }
         */
 
+    }
+
+    public void SwitchTo1Arm()
+    {
+        arm1.SetActive(true);
+        grabController.gameObject.transform.SetParent(arm1Stick);
+        grabController.gameObject.transform.localPosition = new Vector3(0,0,0);
+        arm2.SetActive(false);
+    }
+
+    public void SwitchTo2Arm()
+    {
+        arm1.SetActive(true);
+        arm1.transform.localPosition = arm1Pos;
+        arm1.transform.localRotation = arm1rot;
+        arm2.SetActive(true);
+
+        grabController.gameObject.transform.SetParent(arm2Stick);
+        grabController.gameObject.transform.localPosition = new Vector3(0, 0, 0);
+        
+    }
+
+    public void NoArm()
+    {
+        arm1.SetActive(false);
+        arm2.SetActive(false);
     }
 
     // Update is called once per frame
@@ -108,7 +152,7 @@ public class RobotController : MonoBehaviour
         }
         if (Input.GetAxis(Grap_Axis) == 0)
         {
-            if (grab == false)
+            if (grab == false && grabController.grabObject == null)
             {
                 grabController.myMat.SetColor("_ArrowColor", grabController.StaticColor);
             }
@@ -155,10 +199,34 @@ public class RobotController : MonoBehaviour
         arm1Spring.targetPosition = arm1Spring.targetPosition + Input.GetAxis(ARM1_INPUT_AXIS) * armRotateSpeed * Time.deltaTime;
         arm1Spring.targetPosition = Mathf.Clamp(arm1Spring.targetPosition, Arm1PosMin,Arm1PosMax);
         Arm1.spring = arm1Spring;
-
+        if (Input.GetAxis(ARM1_INPUT_AXIS) > 0.1f)
+        {
+            arm1JointRenderer.materials[1].SetColor("_ArrowColor",carController.ColorGreen * (1f + Mathf.Abs(Input.GetAxis(ARM1_INPUT_AXIS)) * 3.0f));
+        }
+        else if (Input.GetAxis(ARM1_INPUT_AXIS) < -0.1f)
+        {
+            arm1JointRenderer.materials[1].SetColor("_ArrowColor", carController.ColorRed * (1f + Mathf.Abs(Input.GetAxis(ARM1_INPUT_AXIS)) * 3.0f));
+        }
+        else
+        {
+            arm1JointRenderer.materials[1].SetColor("_ArrowColor", Color.gray);
+        }
         arm2Spring.targetPosition = arm2Spring.targetPosition + Input.GetAxis(ARM2_INPUT_AXIS) * armRotateSpeed * Time.deltaTime;
         arm2Spring.targetPosition = Mathf.Clamp(arm2Spring.targetPosition, Arm2PosMin, Arm2PosMax);
         Arm2.spring = arm2Spring;
+
+        if (Input.GetAxis(ARM2_INPUT_AXIS) > 0.1f)
+        {
+            arm2JointRenderer.materials[1].SetColor("_ArrowColor", carController.ColorGreen * (1f + Mathf.Abs(Input.GetAxis(ARM2_INPUT_AXIS)) * 3.0f));
+        }
+        else if (Input.GetAxis(ARM2_INPUT_AXIS) < -0.1f)
+        {
+            arm2JointRenderer.materials[1].SetColor("_ArrowColor", carController.ColorRed * (1f + Mathf.Abs(Input.GetAxis(ARM2_INPUT_AXIS)) * 3.0f));
+        }
+        else
+        {
+            arm2JointRenderer.materials[1].SetColor("_ArrowColor", Color.gray);
+        }
     }
 }
 

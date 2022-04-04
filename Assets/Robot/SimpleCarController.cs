@@ -18,8 +18,8 @@ public class SimpleCarController : MonoBehaviour
     public float maxSteeringAngle;
     [SerializeField] private AnimationCurve AxisToSpeed;
     [SerializeField] private GameObject leftArrow,rightArrow;
-    [SerializeField] private Color ColorGreen;
-    [SerializeField] private Color ColorRed;
+    [SerializeField] public Color ColorGreen;
+    [SerializeField] public Color ColorRed;
     [SerializeField] private bool hasArrow;
 
 
