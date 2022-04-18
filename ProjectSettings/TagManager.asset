@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shootable
+  - Robot
+  - Battery
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - Lighting
   - Ground
   - Postprocessing
-  - 
-  - 
+  - RoborLight
+  - Grab
   - 
   - 
   - 
