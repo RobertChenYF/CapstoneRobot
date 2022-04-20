@@ -9,14 +9,15 @@ public class GrabController : MonoBehaviour
     public RobotController robotController;
     public Color StaticColor;
     public Color TouchColor;
-    [HideInInspector]public Material myMat;
+    public Material myMat;
     public Color GrabColor;
+    public AudioSource grabSound;
 
     // Start is called before the first frame update
     void Start()
     {
-        myMat = GetComponent<MeshRenderer>().material;
-        GetComponent<MeshRenderer>().material.SetColor("_ArrowColor",StaticColor);
+        //myMat = GetComponent<MeshRenderer>().material;
+       myMat.SetColor("_ArrowColor",StaticColor);
         
     }
 
@@ -33,6 +34,7 @@ public class GrabController : MonoBehaviour
             Debug.Log("grab");
             grabObject = other.gameObject;
             GetComponent<MeshRenderer>().material.SetColor("_ArrowColor", TouchColor*3.5f);
+            grabSound.pitch = 1.3f;
         }
     }
 
@@ -46,6 +48,8 @@ public class GrabController : MonoBehaviour
                 Destroy(grabObject.GetComponent<FixedJoint>());
             }
             GetComponent<MeshRenderer>().material.SetColor("_ArrowColor", StaticColor);
+            grabSound.Stop();
+            grabSound.pitch = 0.5f;
             grabObject = null;
             robotController.grab = false;
         }

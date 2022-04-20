@@ -123,6 +123,8 @@ public class RobotController : MonoBehaviour
         if (Input.GetButtonDown("Grap"))
         {
             grabController.myMat.SetColor("_ArrowColor", grabController.GrabColor);
+            grabController.grabSound.Play();
+
             if (grabController.grabObject != null && grab == false)
             {
                 grab = true;
@@ -149,6 +151,10 @@ public class RobotController : MonoBehaviour
                 }
                 grabController.myMat.SetColor("_ArrowColor", grabController.StaticColor*3.5f);
             }
+        }
+        if (Input.GetButtonUp("Grap") && grabController.grabObject == null)
+        {
+            grabController.grabSound.Stop();
         }
         if (Input.GetAxis(Grap_Axis) == 0)
         {
