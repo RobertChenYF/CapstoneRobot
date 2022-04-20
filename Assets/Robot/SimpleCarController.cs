@@ -21,6 +21,10 @@ public class SimpleCarController : MonoBehaviour
     [SerializeField] public Color ColorGreen;
     [SerializeField] public Color ColorRed;
     [SerializeField] private bool hasArrow;
+    [SerializeField] private AudioSource robotSound;
+    [SerializeField] private AudioClip moveForward;
+    [SerializeField] private AudioClip moveBackward;
+
 
 
     // finds the corresponding visual wheel
@@ -109,6 +113,16 @@ public class SimpleCarController : MonoBehaviour
                         rightArrow.GetComponent<SpriteRenderer>().flipX = false;
                         rightArrow.GetComponent<SpriteRenderer>().material.SetColor("_ArrowColor", ColorGreen * (1f + Mathf.Abs(rightTank) * 3.0f));
                     }
+                }
+
+                if (Mathf.Abs(rightTank) + Mathf.Abs(leftTank) > 0.2f)
+                {
+                    robotSound.Play();
+                    robotSound.volume = ((Mathf.Abs(rightTank) + Mathf.Abs(leftTank)) * 0.5f + 0.5f);
+                }
+                else
+                {
+                    robotSound.Stop();
                 }
             }
             
