@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
 public class AxleInfo
@@ -115,14 +114,23 @@ public class SimpleCarController : MonoBehaviour
                     }
                 }
 
-                if (Mathf.Abs(rightTank) + Mathf.Abs(leftTank) > 0.2f)
+                if ((Mathf.Abs(rightTank) + Mathf.Abs(leftTank)) > 0.2f)
                 {
-                    robotSound.Play();
-                    robotSound.volume = ((Mathf.Abs(rightTank) + Mathf.Abs(leftTank)) * 0.5f + 0.5f);
+                    
+                    if (robotSound.isPlaying == false)
+                    {
+                        robotSound.Play();
+                    }
+                    robotSound.volume = ((Mathf.Abs(rightTank) + Mathf.Abs(leftTank)) * 0.3f + 0.2f)*0.5f;
+                    robotSound.pitch = Mathf.Lerp(0.3f, 0.6f, (Mathf.Abs(rightTank) + Mathf.Abs(leftTank)) * 0.5f);
+
+                   // robotSound.volume = 1;
+                    Debug.Log("play sound");
                 }
-                else
+                else if((Mathf.Abs(rightTank) + Mathf.Abs(leftTank)) < 0.2f)
                 {
                     robotSound.Stop();
+                    Debug.Log("stop");
                 }
             }
             
