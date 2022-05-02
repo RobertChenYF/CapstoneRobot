@@ -128,6 +128,7 @@ public class RobotController : MonoBehaviour
             if (grabController.grabObject != null && grab == false)
             {
                 grab = true;
+                grabController.grabObject.isStatic = false;
                 //grabController.grabObject.transform.SetParent(grabController.gameObject.transform);
                 if (grabController.grabObject.GetComponent<FixedJoint>() == null)
                 {
@@ -192,22 +193,26 @@ public class RobotController : MonoBehaviour
             }
         }
 
-        grap1Spring.targetPosition = grap1Spring.targetPosition + Input.GetAxis(Grap_Axis) * grapCloseSpeed * Time.deltaTime;
+    }
+
+    public void FixedUpdate()
+    {
+        grap1Spring.targetPosition = grap1Spring.targetPosition + Input.GetAxis(Grap_Axis) * grapCloseSpeed * Time.fixedDeltaTime;
         grap1Spring.targetPosition = Mathf.Clamp(grap1Spring.targetPosition, grap1PosMin, grap1PosMax);
         grap1.spring = grap1Spring;
 
-        grap2Spring.targetPosition = grap2Spring.targetPosition + Input.GetAxis(Grap_Axis) * grapCloseSpeed * Time.deltaTime;
+        grap2Spring.targetPosition = grap2Spring.targetPosition + Input.GetAxis(Grap_Axis) * grapCloseSpeed * Time.fixedDeltaTime;
         grap2Spring.targetPosition = Mathf.Clamp(grap2Spring.targetPosition, grap1PosMin, grap1PosMax);
         grap2.spring = grap2Spring;
 
-        RotateGrap.Rotate(new Vector3(0,0,Input.GetAxis(ROTATE_GRAP_AXIS)*grapRotateSpeed*Time.deltaTime),Space.Self);
-        
-        arm1Spring.targetPosition = arm1Spring.targetPosition + Input.GetAxis(ARM1_INPUT_AXIS) * armRotateSpeed * Time.deltaTime;
-        arm1Spring.targetPosition = Mathf.Clamp(arm1Spring.targetPosition, Arm1PosMin,Arm1PosMax);
+        RotateGrap.Rotate(new Vector3(0, 0, Input.GetAxis(ROTATE_GRAP_AXIS) * grapRotateSpeed * Time.deltaTime), Space.Self);
+
+        arm1Spring.targetPosition = arm1Spring.targetPosition + Input.GetAxis(ARM1_INPUT_AXIS) * armRotateSpeed * Time.fixedDeltaTime;
+        arm1Spring.targetPosition = Mathf.Clamp(arm1Spring.targetPosition, Arm1PosMin, Arm1PosMax);
         Arm1.spring = arm1Spring;
         if (Input.GetAxis(ARM1_INPUT_AXIS) > 0.1f)
         {
-            arm1JointRenderer.materials[1].SetColor("_ArrowColor",carController.ColorGreen * (1f + Mathf.Abs(Input.GetAxis(ARM1_INPUT_AXIS)) * 3.0f));
+            arm1JointRenderer.materials[1].SetColor("_ArrowColor", carController.ColorGreen * (1f + Mathf.Abs(Input.GetAxis(ARM1_INPUT_AXIS)) * 3.0f));
         }
         else if (Input.GetAxis(ARM1_INPUT_AXIS) < -0.1f)
         {
@@ -217,7 +222,7 @@ public class RobotController : MonoBehaviour
         {
             arm1JointRenderer.materials[1].SetColor("_ArrowColor", Color.gray);
         }
-        arm2Spring.targetPosition = arm2Spring.targetPosition + Input.GetAxis(ARM2_INPUT_AXIS) * armRotateSpeed * Time.deltaTime;
+        arm2Spring.targetPosition = arm2Spring.targetPosition + Input.GetAxis(ARM2_INPUT_AXIS) * armRotateSpeed * Time.fixedDeltaTime;
         arm2Spring.targetPosition = Mathf.Clamp(arm2Spring.targetPosition, Arm2PosMin, Arm2PosMax);
         Arm2.spring = arm2Spring;
 

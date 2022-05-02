@@ -62,6 +62,7 @@ public class DoorController : MonoBehaviour
         if (On)
         {
             doorAnimator.SetBool("Open", false);
+            GetComponent<AudioSource>().PlayOneShot(GetComponent<AudioSource>().clip);
             open = false;
         }
         
@@ -92,7 +93,7 @@ public class DoorController : MonoBehaviour
         IndicateLightColorChange(indicateLight[scannerCode], Color.green);
 
         bool open = true;
-        /*
+        
         for (int i = 0; i < 3; i++)
         {
             if (indicateLight[i].GetComponent<MeshRenderer>().materials[1].GetColor("_Color") != Color.green)
@@ -101,7 +102,7 @@ public class DoorController : MonoBehaviour
                 break;
             }
         }
-        */
+        
 
         if (open)
         {

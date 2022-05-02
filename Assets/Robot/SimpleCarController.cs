@@ -45,6 +45,12 @@ public class SimpleCarController : MonoBehaviour
         visualWheel.transform.rotation = rotation;
     }
 
+    public void setPosition(Transform transform)
+    {
+        gameObject.transform.position = transform.position;
+        gameObject.transform.rotation = transform.rotation;
+    }
+
     public void FixedUpdate()
     {
         
@@ -121,16 +127,16 @@ public class SimpleCarController : MonoBehaviour
                     {
                         robotSound.Play();
                     }
-                    robotSound.volume = ((Mathf.Abs(rightTank) + Mathf.Abs(leftTank)) * 0.3f + 0.2f)*0.5f;
+                    robotSound.volume = ((Mathf.Abs(rightTank) + Mathf.Abs(leftTank)) * 0.3f + 0.2f)*0.25f;
                     robotSound.pitch = Mathf.Lerp(0.3f, 0.6f, (Mathf.Abs(rightTank) + Mathf.Abs(leftTank)) * 0.5f);
 
                    // robotSound.volume = 1;
-                    Debug.Log("play sound");
+                    //Debug.Log("play sound");
                 }
                 else if((Mathf.Abs(rightTank) + Mathf.Abs(leftTank)) < 0.2f)
                 {
                     robotSound.Stop();
-                    Debug.Log("stop");
+                    //Debug.Log("stop");
                 }
             }
             
