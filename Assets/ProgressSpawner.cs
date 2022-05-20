@@ -10,7 +10,7 @@ public class ProgressSpawner : MonoBehaviour
     public GameObject car;
     public BeginGame beginGame;
     public float initializeTime = 0;
-    public static int positionCode = -1;
+    public static int positionCode;
     // Start is called before the first frame update
 
     private void Awake()
@@ -66,7 +66,9 @@ public class ProgressSpawner : MonoBehaviour
 
     public void setPositionCode(int a)
     {
-        ProgressSpawner.positionCode = a;
+        
+        positionCode = a;
+        Debug.Log("set to " + ProgressSpawner.positionCode);
     }
 
     // Update is called once per frame
