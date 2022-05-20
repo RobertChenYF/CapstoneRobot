@@ -10,7 +10,7 @@ public class ProgressSpawner : MonoBehaviour
     public GameObject car;
     public BeginGame beginGame;
     public float initializeTime = 0;
-    public static int positionCode = 2;
+    public static int positionCode = -1;
     // Start is called before the first frame update
 
     private void Awake()
@@ -32,7 +32,7 @@ public class ProgressSpawner : MonoBehaviour
 
            Destroy(this.gameObject);
         }
-        //DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this.gameObject);
     }
     void Start()
     {
@@ -40,7 +40,34 @@ public class ProgressSpawner : MonoBehaviour
         beginGame = GameObject.Find("press to start").GetComponent<BeginGame>();
     }
 
+    void spawn()
+    {
+        Debug.Log("restart");
+        car = Service.Robot;
+        beginGame = Service.beginGame;
+        Debug.Log(Service.Robot);
+        Debug.Log(positionCode);
 
+        if (positionCode >= 0)
+        {
+        Service.Robot.transform.position = SpawnPos[positionCode].transform.position;
+        beginGame.JustBegin();
+        if (positionCode == 1 || positionCode == 2)
+        {
+            Service.robotController.SwitchTo1Arm();
+        }
+        else if (positionCode == 3 || positionCode == 4)
+        {
+            Service.robotController.SwitchTo2Arm();
+        }
+        }
+
+    }
+
+    public void setPositionCode(int a)
+    {
+        ProgressSpawner.positionCode = a;
+    }
 
     // Update is called once per frame
     void Update()
@@ -50,26 +77,21 @@ public class ProgressSpawner : MonoBehaviour
         {
 
             SceneManager.LoadScene(0);
-            car = GameObject.Find("car_root");
-            beginGame = GameObject.Find("press to start").GetComponent<BeginGame>();
-            car.transform.position = SpawnPos[positionCode].transform.position;
-            beginGame.JustBegin();
-            if (positionCode == 1 || positionCode ==  2)
-            {
-                Service.robotController.SwitchTo1Arm();
-            }
-            else if (positionCode == 3 || positionCode == 4)
-            {
-                Service.robotController.SwitchTo2Arm();
-            }
-            
 
+            Invoke("spawn", 0.1f);
         }
+
+
+
+        
+
+
+        
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            car.transform.position = SpawnPos[0].transform.position;
-            beginGame.JustBegin();
+            Service.Robot.transform.position = SpawnPos[0].transform.position;
+            Service.beginGame.JustBegin();
             positionCode = 0;
             Service.robotController.NoArm();
         }

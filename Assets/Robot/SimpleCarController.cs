@@ -25,6 +25,11 @@ public class SimpleCarController : MonoBehaviour
     [SerializeField] private AudioClip moveBackward;
 
 
+    public void Awake()
+    {
+        Service.Robot = this.gameObject;
+    }
+
 
     // finds the corresponding visual wheel
     // correctly applies the transform
@@ -50,6 +55,8 @@ public class SimpleCarController : MonoBehaviour
         gameObject.transform.position = transform.position;
         gameObject.transform.rotation = transform.rotation;
     }
+
+    
 
     public void FixedUpdate()
     {

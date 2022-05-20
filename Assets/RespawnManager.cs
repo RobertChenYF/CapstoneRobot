@@ -17,6 +17,7 @@ public class RespawnManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            ProgressSpawner.positionCode = -1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         if (Input.GetKeyDown(KeyCode.Escape))

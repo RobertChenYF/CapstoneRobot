@@ -19,6 +19,12 @@ public class BeginGame : MonoBehaviour
     public SimpleCarController carController;
     public bool start = false;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        Service.beginGame = this;
+    }
+
     void Start()
     {
         arrowMat.SetColor("_ArrowColor",Color.gray);

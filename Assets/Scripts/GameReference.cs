@@ -11,6 +11,7 @@ public class GameReference : MonoBehaviour
     void Awake()
     {
         Service.gameReference = this;
+
     }
 
     // Update is called once per frame
@@ -25,5 +26,7 @@ public static class Service
     
     public static GameReference gameReference;
     public static RobotController robotController;
+    public static GameObject Robot;
+    public static BeginGame beginGame;
 
 }
