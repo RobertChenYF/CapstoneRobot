@@ -6,6 +6,18 @@ using System.IO;
 using UnityEditor;
 
 
+#if UNITY_EDITOR
+
+public class ScreenshotGrabber
+{
+    [MenuItem("Screenshot/Grab")]
+    public static void Grab()
+    {
+        ScreenCapture.CaptureScreenshot("Screenshot.png", 1);
+    }
+}
+#endif
+
 public class UpdateLevel : Editor
 {
     private static GameObject scifiFloor;
